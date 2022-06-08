@@ -76,7 +76,7 @@ RUN for TARGET_VERSION in $EXTRA_TARGETS $SFOS_VERSION; do \
         export CXX_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-g++ ;\
         export AR_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-ar ;\
         sb2 -t SailfishOS-$TARGET_VERSION-$SFOS_ARCH \
-            cargo build --release --manifest-path sccache/Cargo.toml ; \
+            cargo build -j 1 --release --manifest-path sccache/Cargo.toml ; \
         sudo cp sccache/target/release/sccache /usr/local/bin/ ;\
     done
 # TODO: remove the cargo cache above
