@@ -75,12 +75,11 @@ RUN for TARGET_VERSION in $EXTRA_TARGETS $SFOS_VERSION; do \
         export CC_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-gcc ;\
         export CXX_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-g++ ;\
         export AR_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-ar ;\
+        export SB2_RUST_TARGET_TRIPLE=$RUST_TARGET ;\
         sb2 -t SailfishOS-$TARGET_VERSION-$SFOS_ARCH \
             cargo build -j 1 --release --manifest-path sccache/Cargo.toml ; \
-        sudo cp sccache/target/release/sccache /usr/local/bin/ ;\
-    done
-# TODO: remove the cargo cache above
-RUN cd ..
+        sudo cp sccache/target/release/sccache /srv/mer/targets/SailfishOS-$TARGET_VERSION-$SFOS_ARCH/usr/local/bin/ ;\
+    done; sudo rm -rf .cargo
 
 RUN sudo rm -rf sccache
 RUN sudo rm -rf /srv/mer/targets/SailfishOS-$SFOS_VERSION-$SFOS_ARCH/var/cache/zypp/*
