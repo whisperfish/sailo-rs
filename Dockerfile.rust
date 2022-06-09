@@ -82,6 +82,8 @@ RUN for TARGET_VERSION in $EXTRA_TARGETS $SFOS_VERSION; do \
         export SB2_RUST_TARGET_TRIPLE=$RUST_TARGET &&\
         export OPENSSL_STATIC=true &&\
         sb2 -t SailfishOS-$TARGET_VERSION-$SFOS_ARCH \
+            cargo clean --manifest-path sccache/Cargo.toml && \
+        sb2 -t SailfishOS-$TARGET_VERSION-$SFOS_ARCH \
             cargo build -j 1 --release --manifest-path sccache/Cargo.toml && \
         sudo cp sccache/target/$RUST_TARGET/release/sccache /srv/mer/targets/SailfishOS-$TARGET_VERSION-$SFOS_ARCH/usr/local/bin/ ;\
     done && sudo rm -rf .cargo
