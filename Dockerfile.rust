@@ -27,6 +27,7 @@ RUN for TARGET_VERSION in $EXTRA_TARGETS $SFOS_VERSION; do \
             sqlite-devel \
             openssl-libs \
             openssl-devel \
+            openssl-static \
             dbus-devel \
             libnemotransferengine-qt5-devel \
             tcl \
@@ -79,6 +80,7 @@ RUN for TARGET_VERSION in $EXTRA_TARGETS $SFOS_VERSION; do \
         export CXX_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-g++ &&\
         export AR_aarch64_unknown_linux_gnu=aarch64-meego-linux-gnu-ar &&\
         export SB2_RUST_TARGET_TRIPLE=$RUST_TARGET &&\
+        export OPENSSL_STATIC=true &&\
         sb2 -t SailfishOS-$TARGET_VERSION-$SFOS_ARCH \
             cargo build -j 1 --release --manifest-path sccache/Cargo.toml && \
         sudo cp sccache/target/$RUST_TARGET/release/sccache /srv/mer/targets/SailfishOS-$TARGET_VERSION-$SFOS_ARCH/usr/local/bin/ ;\
